@@ -19,4 +19,6 @@ public class ReservationResponseDto {
         this.startAt = startAt;
         this.endAt = endAt;
     }
+
+    public toDto()
 }
