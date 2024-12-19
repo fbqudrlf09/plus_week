@@ -7,14 +7,13 @@ import com.example.demo.entity.Reservation;
 import com.example.demo.entity.User;
 import com.example.demo.exception.ReservationConflictException;
 import com.example.demo.repository.ItemRepository;
-import com.example.demo.repository.ReservationRepository;
+import com.example.demo.repository.reservation.ReservationRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -75,7 +74,9 @@ public class ReservationService {
     // TODO: 5. QueryDSL 검색 개선
     public List<ReservationResponseDto> searchAndConvertReservations(Long userId, Long itemId) {
 
-        List<Reservation> reservations = searchReservations(userId, itemId);
+        List<Reservation> reservations = reservationRepository.searchReservations(userId, itemId);
+//        List<Reservation> reservations = searchReservations(userId, itemId);
+
 
         return convertToDto(reservations);
     }
