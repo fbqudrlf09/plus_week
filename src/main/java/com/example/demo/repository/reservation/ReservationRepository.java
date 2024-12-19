@@ -1,6 +1,7 @@
 package com.example.demo.repository.reservation;
 
 import com.example.demo.entity.Reservation;
+import com.example.demo.entity.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +31,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
 
     @Query("select distinct r from Reservation  r join fetch r.item join fetch r.user")
     List<Reservation> findAllItemAndUser();
+
+    default Reservation findByIdOrElseThrow(Long id) {
+        return findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 ID에 맞는 값이 존재하지 않습니다."));
+    }
 }

@@ -19,4 +19,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int updateStatusBlock(@Param("idList") List<Long> idList);
 
     List<User> findByStatus(String status);
+
+    default User findByIdOrElseThrow(Long id) {
+        return findById(id).orElseThrow(() ->
+                new IllegalArgumentException("해당 ID에 맞는 값이 존재하지 않습니다.")
+        );
+    }
 }
